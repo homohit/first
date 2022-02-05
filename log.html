@@ -1,0 +1,82 @@
+<?php 
+include("connection.php");
+
+/*$NUMBER=$_POST["NUMBER"];
+$aadhaar=$_POST["ID"];
+echo $NUMBER .$aadhaar*/?>
+<html><style>
+ 
+   input{
+	   width: 200px;
+	   height: 40px;
+	   font-size: 25px;
+	   
+	   
+	   
+	   
+   }
+   th,td{
+	   text-align: left;
+	    font-size: 25px;
+   padding:15px;
+   }
+   span{
+	   font-size:20px;
+	   font-coloer: red;
+   }
+   table{border="1;
+	   width: 50%;
+	   
+   }
+   </style><body>
+<h1>RAM HOTELS</h1><form action="" autocomplete="on" method ="POST"> 
+ENTER ID<input type="text"  NAME="ID">
+ 
+<input type="submit" name="submit" value="check">
+</FORM>
+<?PHP 
+$CUST_id=$_POST['ID'];
+//$NUM=$_POST['NUMBER'];
+?>
+<?php
+IF($query="select * from customer WHERE  cust_id ='$CUST_id' ")
+{
+//$query="select * from customer WHERE  cust_id ='$CUST_id' ";
+$data= mysqli_query($conn,$query);
+$total =mysqli_num_rows($data);
+// ECHO TOTAL
+
+if($total!=0)
+{
+	$result=mysqli_fetch_assoc($data);
+	
+
+	}
+}
+else {echo "no data found";}
+?>
+<TABLE ><TR><TH>Date</TH><TH><?php $today=date("d/m/y"); echo $today;?></TH><TH>           </TH></tr>
+ <TR> <TD> BOOKING NAME</TD><TD><?php echo $result['FULL_NAME'];?></TD></TR>
+ <TR> <TD> HOTEL NAME</TD><TD>HOTEL SHRI RAM</TD></TR>
+ <TR> <TD>CITY</TD><TD>JABALPUR</TD></TR>
+ <TR> <TD>No of Rooms</TD><TD><?php echo $result['NO_ROOM'];?></TD></TR>
+ <TR> <TD>Tarriff/day</TD><TD><?php echo $result['PAYMENT'];?></TD></TR>
+ <TR> <TD>Check in date</TD><TD><?php echo $result['CHECHIN_DATE'] ;?></TD></TR>
+ <TR> <TD>CHECK OUT DATE</TD><TD><?php echo $result['CHECK_OUT_DATE'] ;?></TD></TR>
+ <TR> <TD>Duration of day</TD><TD><?php echo $result['days'] ;?></TD></TR>
+</TABLE>
+<TABLE>
+<TR><TH>S.NO</TH><TH>Particular</TH><TH>total</TH></TR>
+<TR><TH>1</TH><TH>Room Tariff</TH><TH><?php echo $result['PAYMENT'];?></TH></TR>
+<TR><TH>2</TH><TH>Discount</TH><TH>0</TH></TR>
+<TR><TH>3</TH><TH>Early check in</TH><TH>0</TH></TR>
+<TR><TH>4</TH><TH>Late check out </TH><TH>0</TH></TR>
+<TR><TH>NET PAID</TH><TH></TH><TH><?php echo $result['PAYMENT'];?></TH></TR>
+ <font color="red"><tr> pay at the time of checkin </tr></font>
+ 
+
+</TABLE>
+</body></html>
+
+          
+
